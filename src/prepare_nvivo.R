@@ -20,7 +20,8 @@ all_1 <- all %>%
     "Race" = "race_code",
     "Minority Statuses" = "minority_code",
     "Qualitative Data" = "qual"
-  )
+  ) %>%
+  mutate(Person = paste0("all_", Person))
 
 # Zero minorities
 zero_1 <- zero %>%
@@ -36,7 +37,8 @@ zero_1 <- zero %>%
     "Race" = "race_code",
     "Minority Statuses" = "minority_code",
     "Qualitative Data" = "qual"
-  )
+  ) %>%
+  mutate(Person = paste0("zero_", Person))
 
 # EXPORT FILES AS WORD DOCUMENTS ------------------------------------------
 
@@ -51,7 +53,7 @@ for (i in 1:nrow(all_1)) {
   ft <- autofit(ft)
   
   # Save as Word document
-  save_as_docx(ft, path = paste0("doc/all_", all_1[i, ]$Person, ".docx"))
+  save_as_docx(ft, path = paste0("doc/", all_1[i, ]$Person, ".docx"))
 }
 
 # Zero minorities
@@ -65,7 +67,7 @@ for (i in 1:nrow(zero_1)) {
   ft <- autofit(ft)
   
   # Save as Word document
-  save_as_docx(ft, path = paste0("doc/zero_", zero_1[i, ]$Person, ".docx"))
+  save_as_docx(ft, path = paste0("doc/", zero_1[i, ]$Person, ".docx"))
 }
 
 # Set dataframes up for combination
