@@ -138,7 +138,7 @@ zero_minority <- zero_1 %>%
 
 # EXPORT DATA -------------------------------------------------------------
 
-# Cleaned minority set (i.e., no missing values)
+# Cleaned all minority set (i.e., no missing values)
 write_csv(all_minority, path = "data/clean_all_minority.csv")
 
 # Cleaned zero minority set (i.e., no missing values)
