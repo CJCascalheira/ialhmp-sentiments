@@ -61,7 +61,8 @@ my_doc <- read_docx()
 
 # Select the two columns
 person_said <- combined %>%
-  select(Person, `Qualitative Data`)
+  select(Person, `Qualitative Data`) %>%
+  mutate(Person = paste0(Person, "    :  "))
 
 # Replicate each row
 person_said_1 <- person_said[rep(1:nrow(person_said), each = 2), ]
