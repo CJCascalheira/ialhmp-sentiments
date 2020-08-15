@@ -1,6 +1,6 @@
 # Dependencies
 library(tidyverse)
-library(flextable)
+library(officer)
 
 # Import data
 all <- read_csv("data/translated_all_minority.csv")
@@ -40,35 +40,7 @@ zero_1 <- zero %>%
   ) %>%
   mutate(Person = paste0("zero_", Person))
 
-# EXPORT FILES AS WORD DOCUMENTS ------------------------------------------
-
-# All minorities
-for (i in 1:nrow(all_1)) {
-  # Create the flextable
-  ft <- all_1[i, ] %>%
-    gather(key = "Variable", value = "Value") %>%
-    flextable()
-  
-  # Fit the table to the width of the Word document
-  ft <- autofit(ft)
-  
-  # Save as Word document
-  save_as_docx(ft, path = paste0("doc/", all_1[i, ]$Person, ".docx"))
-}
-
-# Zero minorities
-for (i in 1:nrow(zero_1)) {
-  # Create the flextable
-  ft <- zero_1[i, ] %>%
-    gather(key = "Variable", value = "Value") %>%
-    flextable()
-  
-  # Fit the table to the width of the Word document
-  ft <- autofit(ft)
-  
-  # Save as Word document
-  save_as_docx(ft, path = paste0("doc/", zero_1[i, ]$Person, ".docx"))
-}
+# EXPORT DOCUMENT FOR CASES -----------------------------------------------
 
 # Set dataframes up for combination
 all_2 <- all_1 %>%
@@ -79,5 +51,28 @@ combined <- zero_1 %>%
   mutate(Type = rep("Zero", nrow(.))) %>%
   rbind(all_2)
 
-# Save to Excel file
-write_excel_csv(combined, path = "data/combined_dataframes.xlsx")
+# Save to csv file
+write_csv(combined, path = "data/combined_dataframes.csv")
+
+# EXPORT FILES AS WORD DOCUMENTS ------------------------------------------
+
+# Set up a docx object
+my_doc <- read_docx()
+
+# Select the two columns
+person_said <- combined %>%
+  select(Person, `Qualitative Data`)
+
+# Replicate each row
+person_said_1 <- person_said[rep(1:nrow(person_said), each = 2), ]
+
+# Set even rows to NA
+person_said_1[1:nrow(person_said_1) %% 2 == 0, ] <- "\n\n"
+
+# Update the docx object
+my_doc <- my_doc %>%
+  body_add_table(person_said_1)
+
+# Save to Word file
+print(my_doc, target = "doc/qual_responses_by_person.docx") %>% 
+  invisible()
