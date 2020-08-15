@@ -77,3 +77,55 @@ my_doc <- my_doc %>%
 # Save to Word file
 print(my_doc, target = "doc/qual_responses_by_person.docx") %>% 
   invisible()
+
+# DIVIDE INTO SETS FOR TEAM -----------------------------------------------
+
+# Determine practice sets and team sets
+# Create Word documents with the sets by hand due to invisible table issue in officer package
+
+# Practice set - all
+all_practice <- all_1[1:5, ] %>%
+  select(Person)
+all_practice
+
+# Practice set - zero
+zero_practice <- zero_1[1:5, ] %>%
+  select(Person)
+zero_practice
+
+# Combine practice sets to remove from main dataframe
+practice_set <- c((all_practice %>% pull()), (zero_practice %>% pull()))
+
+# Number responses per team member
+combined %>%
+  filter(!(Person %in% practice_set)) %>%
+  nrow() / 4
+
+# Remove practice set
+no_practice <- combined %>%
+  filter(!(Person %in% practice_set))
+
+# Jose
+no_practice[1:315, ] %>%
+  select(Person) %>%
+  tail()
+
+# Megan
+no_practice[316:630, ] %>%
+  select(Person) %>%
+  tail()
+
+# Cory
+no_practice[631:945, ] %>%
+  select(Person) %>%
+  tail()
+
+# Coco
+no_practice[945:nrow(no_practice), ] %>%
+  select(Person) %>%
+  tail()
+
+# The following participants were added to other data sets so Coco did not have to code
+# 318 responses
+# - all_R_2TMjSbrHo2ZLCbY   (Jose)
+# - all_R_xhX9RqbOFEYwlgZ   (Megan)
