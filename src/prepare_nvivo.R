@@ -95,6 +95,7 @@ zero_practice
 
 # Combine practice sets to remove from main dataframe
 practice_set <- c((all_practice %>% pull()), (zero_practice %>% pull()))
+practice_set
 
 # Number responses per team member
 combined %>%
@@ -104,6 +105,7 @@ combined %>%
 # Remove practice set
 no_practice <- combined %>%
   filter(!(Person %in% practice_set))
+no_practice
 
 # Jose
 no_practice[1:315, ] %>%
