@@ -23,10 +23,50 @@ all_zero <- bind_rows(all, zero)
   filter(id == "R_1jAJPKIevf6L3Yt"))
 a[c(5,8)]
 
+# Safety - unsafe subtheme
+(a <- all_zero %>%
+    filter(id == "R_25SDnnbl0Kzdkun"))
+a[8]
+
+# Connection - proximity theme
+(a <- all_zero %>%
+    filter(id == "R_25WQfxfT7RnXImZ"))
+a[8]
+
+# Connection - subtheme contrast with safety
+(a <- all_zero %>%
+    filter(id == "R_WlpGfqbzotW5I9X"))
+a[8]
+
+# Environmental Privilege
+(a <- all_zero %>%
+    filter(id == "R_1ikgqFnGistaSQl"))
+a[8]
+
 # Environmental Privilege - Underserved subtheme
 (a <- all_zero %>%
     filter(id == "R_wOa1YKmNZsi5uIp"))
-a[7]
+a[8]
+
+# Discrimination
+(a <- all_zero %>%
+    filter(id == "R_2eXBZZiMB0KLL6F"))
+a[8]
+
+# Identity
+(a <- all_zero %>%
+    filter(id == "R_3EbA0M6XRbxbuTM"))
+a[8]
+
+# Disconnection
+(a <- all_zero %>%
+    filter(id == "R_3JDwRXeG52QHI66"))
+a[8]
+
+# Disconnection - distance
+(a <- all_zero %>%
+    filter(id == "R_2PALNgs7ZhX8EjP"))
+a[8]
 
 # PARTICIPANTS PER THEME --------------------------------------------------
 
