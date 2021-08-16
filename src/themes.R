@@ -1,5 +1,6 @@
 # Dependencies
 library(tidyverse)
+library(tidytext)
 
 # Import data
 safety <- read_csv("data/themes_csv/safety.csv")
@@ -15,6 +16,16 @@ underserved <- read_csv("data/themes_csv/subthemes/underserved.csv")
 
 # Prepare demographic data
 all_zero <- bind_rows(all, zero)
+
+# Average words
+all_zero %>%
+  mutate(temp_id = 1:nrow(all_zero)) %>%
+  unnest_tokens(word, qual) %>%
+  count(id) %>%
+  summarize(
+    m = mean(n),
+    sd = sd(n)
+  )
 
 # FILTER FOR PARTICIPANTS -------------------------------------------------
 
